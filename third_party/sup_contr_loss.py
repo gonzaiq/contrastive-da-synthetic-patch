@@ -1,6 +1,7 @@
 """
 Author: Yonglong Tian (yonglong@mit.edu)
 Date: May 07, 2020
+Code from: https://github.com/HobbitLong/SupContrast
 """
 from __future__ import print_function
 
@@ -87,7 +88,7 @@ class SupConLoss(nn.Module):
         # compute log_prob
         exp_logits = torch.exp(logits) * logits_mask
         #log_prob = logits - torch.log(exp_logits.sum(1, keepdim=True))
-        log_prob = logits - torch.log(exp_logits.sum(1, keepdim=True) + 1e-6) # numerical stability
+        log_prob = logits - torch.log(exp_logits.sum(1, keepdim=True) + 1e-6) # add for numerical stability (not present in original repository)
 
         # compute mean of log-likelihood over positive
         # modified to handle edge cases when there is no positive pair
